@@ -56,7 +56,7 @@ export default function EditCreator() {
   return (
     <div className="bg-blue-500 text-white min-h-screen flex flex-col justify-center items-center">
       <h1 className="text-3xl mb-8">Edit Creator</h1>
-      <form onSubmit={handleSubmit} className="bg-white text-black p-8 rounded shadow-md">
+      <form onSubmit={handleSubmit} className="bg-white text-black p-8 rounded shadow-md w-80">
         <div className="mb-4">
           <label className="block text-sm font-bold mb-2">Name</label>
           <input
@@ -105,3 +105,4 @@ export default function EditCreator() {
     </div>
   );
 }
+
