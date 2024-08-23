@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { supabase } from '../client'; // Adjust import path as necessary
-import CreatorCard from '../components/CreatorCard'; // Adjust import path as necessary
 import { Link } from 'react-router-dom';
+import { supabase } from '../client'; // Adjust the import path as necessary
+import CreatorCard from '../components/CreatorCard'; // Adjust the import path as necessary
 
 interface Creator {
   id: string;
@@ -35,39 +35,38 @@ export default function ViewCreators() {
   return (
     <div className="bg-blue-500 text-white min-h-screen p-4">
       <h1 className="text-3xl mb-8 text-center">View Creators</h1>
-      {loading ? (
-        <div className="text-center">Loading...</div>
-      ) : creators.length === 0 ? (
+      {creators.length === 0 ? (
         <div className="text-center">
-          <p className="text-xl mb-4">No creators found.</p>
-          <Link
-            to="/add-creator"
-            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-          >
-            Add a New Creator
+          <p>No creators found.</p>
+          <Link to="/add-creator" className="bg-green-500 text-white font-bold py-2 px-4 rounded">
+            Add Creator
           </Link>
         </div>
       ) : (
-        <div className="flex flex-wrap gap-4 justify-center">
-          {creators.map(creator => (
-            <div key={creator.id} className="relative">
+        <div className="relative">
+          <Link
+            to="/add-creator"
+            className="absolute top-4 right-4 bg-green-500 text-white font-bold py-2 px-4 rounded"
+          >
+            Add Creator
+          </Link>
+          <div className="flex flex-wrap gap-4 justify-center">
+            {creators.map(creator => (
               <CreatorCard
+                key={creator.id}
+                id={creator.id}
                 name={creator.name}
                 description={creator.description}
                 url={creator.url}
                 imageURL={creator.imageURL}
               />
-              <Link
-                to={`/edit-creator/${creator.id}`}
-                className="absolute top-2 right-2 bg-blue-500 text-white font-bold py-1 px-2 rounded"
-              >
-                Edit
-              </Link>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
     </div>
   );
 }
+
+
 
