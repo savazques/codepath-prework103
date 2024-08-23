@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { supabase } from '../client'; // Adjust the import path as necessary
+import { supabase } from '../client'; // Adjust import path as necessary
 
 export default function EditCreator() {
-  const { id } = useParams<{ id: string }>(); // Get the creator ID from the URL
+  const { id } = useParams<{ id: string }>(); // Extract 'id' from URL params
   const navigate = useNavigate();
-  
+
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [url, setUrl] = useState('');
   const [imageURL, setImageURL] = useState('');
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchCreator = async () => {
-      if (!id) return;
+      if (!id) {
+        setError('No ID provided');
+        setLoading(false);
+        return;
+      }
+
+      console.log('Fetching creator with ID:', id); // Verify ID retrieval
 
       const { data, error } = await supabase
         .from('creators')
@@ -23,7 +30,8 @@ export default function EditCreator() {
         .single();
 
       if (error) {
-        console.error('Error fetching creator:', error);
+        console.error('Error fetching creator:', error.message || error);
+        setError(error.message || 'Unknown error occurred');
       } else if (data) {
         setName(data.name);
         setDescription(data.description);
@@ -39,19 +47,26 @@ export default function EditCreator() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!id) {
+      setError('No ID provided');
+      return;
+    }
+
     const { error } = await supabase
       .from('creators')
       .update({ name, description, url, imageURL })
       .eq('id', id);
 
     if (error) {
-      console.error('Error updating creator:', error);
+      console.error('Error updating creator:', error.message || error);
+      setError(error.message || 'Unknown error occurred');
     } else {
       navigate('/view-creators');
     }
   };
 
   if (loading) return <div>Loading...</div>;
+  if (error) return <div className="text-red-500">{error}</div>;
 
   return (
     <div className="bg-blue-500 text-white min-h-screen flex flex-col justify-center items-center">
@@ -105,4 +120,3 @@ export default function EditCreator() {
     </div>
   );
 }
-

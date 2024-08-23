@@ -53,10 +53,12 @@ export default function ViewCreators() {
               >
                 Edit
               </Link>
+              
             </div>
           ))}
         </div>
       )}
     </div>
   );
+  
 }
