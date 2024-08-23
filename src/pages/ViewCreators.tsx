@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../client'; // Adjust the import path as necessary
 import CreatorCard from '../components/CreatorCard'; // Adjust the import path as necessary
+import { Link } from 'react-router-dom';
 
 interface Creator {
   id: string;
@@ -39,13 +40,20 @@ export default function ViewCreators() {
       ) : (
         <div className="flex flex-wrap gap-4 justify-center">
           {creators.map(creator => (
-            <CreatorCard
-              key={creator.id}
-              name={creator.name}
-              description={creator.description}
-              url={creator.url}
-              imageURL={creator.imageURL}
-            />
+            <div key={creator.id} className="relative">
+              <CreatorCard
+                name={creator.name}
+                description={creator.description}
+                url={creator.url}
+                imageURL={creator.imageURL}
+              />
+              <Link
+                to={`/edit-creator/${creator.id}`}
+                className="absolute top-2 right-2 bg-blue-500 text-white font-bold py-1 px-2 rounded"
+              >
+                Edit
+              </Link>
+            </div>
           ))}
         </div>
       )}
