@@ -65,6 +65,25 @@ export default function EditCreator() {
     }
   };
 
+  const handleDelete = async () => {
+    if (!id) {
+      setError('No ID provided');
+      return;
+    }
+
+    const { error } = await supabase
+      .from('creators')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.error('Error deleting creator:', error.message || error);
+      setError(error.message || 'Unknown error occurred');
+    } else {
+      navigate('/view-creators');
+    }
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
 
@@ -110,13 +129,23 @@ export default function EditCreator() {
             className="w-full p-2 border border-gray-300 rounded"
           />
         </div>
-        <button
-          type="submit"
-          className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-        >
-          Save Changes
-        </button>
+        <div className="flex gap-4">
+          <button
+            type="submit"
+            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+          >
+            Save Changes
+          </button>
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+          >
+            Delete Creator
+          </button>
+        </div>
       </form>
     </div>
   );
 }
+

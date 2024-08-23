@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { supabase } from '../client'; // Adjust the import path as necessary
-import CreatorCard from '../components/CreatorCard'; // Adjust the import path as necessary
+import { supabase } from '../client'; // Adjust import path as necessary
+import CreatorCard from '../components/CreatorCard'; // Adjust import path as necessary
 import { Link } from 'react-router-dom';
 
 interface Creator {
@@ -37,6 +37,16 @@ export default function ViewCreators() {
       <h1 className="text-3xl mb-8 text-center">View Creators</h1>
       {loading ? (
         <div className="text-center">Loading...</div>
+      ) : creators.length === 0 ? (
+        <div className="text-center">
+          <p className="text-xl mb-4">No creators found.</p>
+          <Link
+            to="/add-creator"
+            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+          >
+            Add a New Creator
+          </Link>
+        </div>
       ) : (
         <div className="flex flex-wrap gap-4 justify-center">
           {creators.map(creator => (
@@ -53,12 +63,11 @@ export default function ViewCreators() {
               >
                 Edit
               </Link>
-              
             </div>
           ))}
         </div>
       )}
     </div>
   );
-  
 }
+
