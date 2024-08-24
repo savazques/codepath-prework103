@@ -50,22 +50,25 @@ export default function ShowCreator() {
   if (!creator) return <div className="text-center">Creator not found.</div>;
 
   return (
-    <div className="bg-blue-500 text-white min-h-screen p-4">
-      <div className="max-w-4xl mx-auto bg-white text-black p-8 rounded shadow-md">
-        <h1 className="text-4xl mb-4">{creator.name}</h1>
+    <div className="bg-blue-500 text-white min-h-screen p-8">
+      <div className="max-w-4xl mx-auto bg-white text-black p-12 rounded-lg shadow-lg">
+        <h1 className="text-4xl mb-6">{creator.name}</h1>
         {creator.imageURL && (
-          <img
-            src={creator.imageURL}
-            alt={`${creator.name}'s picture`}
-            className="w-full h-64 object-cover mb-4 rounded"
-          />
+          <div className="w-full h-85 mb-6 relative">
+            <img
+              src={creator.imageURL}
+              alt={`${creator.name}'s picture`}
+              className="w-full h-full object-cover rounded-lg"
+              style={{ aspectRatio: '1 / 1' }} // Ensures the image is square
+            />
+          </div>
         )}
-        <p className="text-lg mb-4">{creator.description}</p>
+        <p className="text-lg mb-6">{creator.description}</p>
         <a
           href={creator.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-blue-500 underline"
+          className="text-blue-500 underline text-lg"
         >
           Visit Socials
         </a>

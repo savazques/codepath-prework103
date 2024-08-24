@@ -71,6 +71,12 @@ export default function EditCreator() {
       return;
     }
 
+    // Confirm deletion
+    const confirmed = window.confirm('Are you sure you want to delete this creator?');
+    if (!confirmed) {
+      return;
+    }
+
     const { error } = await supabase
       .from('creators')
       .delete()
@@ -148,4 +154,3 @@ export default function EditCreator() {
     </div>
   );
 }
-
