@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { supabase } from '../client'; // Adjust the import path as necessary
-import CreatorCard from '../components/CreatorCard'; // Adjust the import path as necessary
+import { supabase } from '../client'; 
+import CreatorCard from '../components/CreatorCard'; 
 
 interface Creator {
   id: string;
@@ -14,7 +14,7 @@ interface Creator {
 export default function ViewCreators() {
   const [creators, setCreators] = useState<Creator[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const navigate = useNavigate(); // Use navigate to programmatically change routes
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchCreators = async () => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { supabase } from '../client'; // Adjust import path as necessary
+import { supabase } from '../client'; 
 
 interface Creator {
   id: string;
@@ -24,7 +24,7 @@ export default function ShowCreator() {
         return;
       }
 
-      console.log('Fetching creator with ID:', id); // Log the ID to debug
+      console.log('Fetching creator with ID:', id); 
 
       const { data, error } = await supabase
         .from('creators')
@@ -59,7 +59,7 @@ export default function ShowCreator() {
               src={creator.imageURL}
               alt={`${creator.name}'s picture`}
               className="w-full h-full object-cover rounded-lg"
-              style={{ aspectRatio: '1 / 1' }} // Ensures the image is square
+              style={{ aspectRatio: '1 / 1' }} 
             />
           </div>
         )}

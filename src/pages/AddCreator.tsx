@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { supabase } from '../client'; // Adjusted import path
+import { supabase } from '../client'; 
 
 export default function AddCreator() {
   const [name, setName] = useState('');

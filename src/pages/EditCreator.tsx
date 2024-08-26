@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { supabase } from '../client'; // Adjust import path as necessary
+import { supabase } from '../client'; 
 
 export default function EditCreator() {
-  const { id } = useParams<{ id: string }>(); // Extract 'id' from URL params
+  const { id } = useParams<{ id: string }>(); 
   const navigate = useNavigate();
 
   const [name, setName] = useState('');
@@ -21,7 +21,7 @@ export default function EditCreator() {
         return;
       }
 
-      console.log('Fetching creator with ID:', id); // Verify ID retrieval
+      console.log('Fetching creator with ID:', id); 
 
       const { data, error } = await supabase
         .from('creators')
